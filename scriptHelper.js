@@ -31,6 +31,16 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
     // this function will be used in formSubmission
     // when the first part of the function is complete, should pass 2 tests 
     // return "Empty", "Not a number", etc etc 
+    let isNumber = "Is a Number"; 
+    let notANumber = "Not a Number"; 
+    let noInput = "Empty"
+    if (testInput === "") {
+        return noInput;
+    } else if (isNaN(testInput) === false) {
+        return isNumber; 
+    } else {
+        return notANumber;
+    }
 }
  
  function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
@@ -40,6 +50,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 
     // when you need to change text on pilotStatus, you'll have to change the style to visible AND change the text with .innerHTML!
     // for ex: pilotStatus = document.getElementById("pilotstatus"), then pilotstatus.innerHTML, etc etc 
+    
 }
 
  // task 3
