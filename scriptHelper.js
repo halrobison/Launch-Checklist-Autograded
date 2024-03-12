@@ -1,7 +1,5 @@
 // Write your helper functions here!
 
-require('cross-fetch/polyfill');
-
 // task 3
 function addDestinationInfo(document, name, diameter, star, distance, moons, imageUrl) {
     // Here is the HTML formatting for our mission target div.
@@ -21,7 +19,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 
  // task 2
  function validateInput(testInput) {
-    // will be shorter than formSubmission, just validating the inputs
+    // do this first. will be shorter than formSubmission, just validating the inputs
     // review form validation lesson in text (can copy/paste!)
     // something like: 
     // if (testInput[name] = pilot) {
@@ -50,7 +48,13 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 
     // when you need to change text on pilotStatus, you'll have to change the style to visible AND change the text with .innerHTML!
     // for ex: pilotStatus = document.getElementById("pilotstatus"), then pilotstatus.innerHTML, etc etc 
-    
+    if (validateInput(pilot) != "Not a Number" || copilot.value != "Not a Number") {
+        alert("All fields are required!");
+        // stop the form submission
+    } else {
+        list.style.visibility = "visible";
+        list.innerHTML = ``
+    }
 }
 
  // task 3

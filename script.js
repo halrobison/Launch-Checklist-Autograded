@@ -22,14 +22,17 @@ window.addEventListener("load", function() {
     })
 
     // add eventListener for button
-    let formSubmit = document.getElementById("formSubmit"); 
+    let formSubmit = this.document.getElementById("formSubmit"); 
     formSubmit.addEventListener("click", function(event) {
-        let pilotName = document.getElementById("pilotName");
-        let copilotName = document.getElementById("copilotName"); 
-        let fuelLevel = document.getElementById("fuelLevel"); 
-        let cargoMass = document.getElementById("cargoMass"); 
-        console.log(document, list, pilotName, copilotName, fuelLevel, cargoMass); 
-        formSubmission(document, list, pilotName, copilotName, fuelLevel, cargoMass);
+        event.preventDefault(); 
+        let list = this.document.getElementById("faultyItems");
+        let pilotName = this.document.querySelector("input[name=pilotName");
+        let copilotName = this.document.querySelector("input[name=copilotName"); 
+        let fuelLevel = this.document.querySelector("input[name=fuelLevel]"); 
+        let cargoMass = this.document.querySelector("input[name=cargoMass]"); 
+        // console.log(document, list, pilotName, copilotName, fuelLevel, cargoMass); 
+        // alert("You submitted a form!");
+        formSubmission(this.document, list, pilotName, copilotName, fuelLevel, cargoMass);
         });
     // then, with button, grab the 4 inputs (pilot, copilot, etc)
     // finally, call  formSubmission - which scriptHelper has!
