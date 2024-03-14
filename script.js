@@ -18,6 +18,7 @@ window.addEventListener("load", function() {
         // Below this comment call the appropriate helper functions to pick a planet fom the list of planets and add that information to your destination.
         pickPlanet();
         // call addDesitination - which will utilize fetch
+        // FYI - can't assign a variable and then use .then; it will be one long ask (with a promise, waiting for the response with fetch)
         addDestinationInfo(); 
     })
 
