@@ -4,31 +4,21 @@
 function addDestinationInfo(document, name, diameter, star, distance, moons, imageUrl) {
     // Here is the HTML formatting for our mission target div.
     // when you uncomment this, you may want to return as a template literal - bc think about this being inserted into HTML. will use `` surrounding.
-    /*
-                 <h2>Mission Destination</h2>
+    let missionTarget = document.getElementById("missionTarget"); 
+    missionTarget.innerHTML = 
+    `<h2>Mission Destination</h2>
                  <ol>
-                     <li>Name: </li>
-                     <li>Diameter: </li>
+                     <li>Name: ${name}</li>
+                     <li>Diameter: ${diameter}</li>
                      <li>Star: ${star}</li>
-                     <li>Distance from Earth: </li>
-                     <li>Number of Moons: </li>
+                     <li>Distance from Earth: ${distance}</li>
+                     <li>Number of Moons: ${moons}</li>
                  </ol>
-                 <img src="">
-    */
+                 <img src="${imageUrl}">`
  }
 
  // task 2
  function validateInput(testInput) {
-    // do this first. will be shorter than formSubmission, just validating the inputs
-    // review form validation lesson in text (can copy/paste!)
-    // something like: 
-    // if (testInput[name] = pilot) {
-
-    // }
-    // will return the given phrases AS STRINGS
-    // this function will be used in formSubmission
-    // when the first part of the function is complete, should pass 2 tests 
-    // return "Empty", "Not a number", etc etc 
     let isNumber = "Is a Number"; 
     let notANumber = "Not a Number"; 
     let noInput = "Empty"
@@ -48,34 +38,71 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 
     // when you need to change text on pilotStatus, you'll have to change the style to visible AND change the text with .innerHTML!
     // for ex: pilotStatus = document.getElementById("pilotstatus"), then pilotstatus.innerHTML, etc etc 
-    if (validateInput(pilot) != "Not a Number" || copilot.value != "Not a Number") {
-        alert("All fields are required!");
-        // stop the form submission
+    
+    const launchStatus = document.querySelector("#launchStatus");
+    const pilotStatus = document.querySelector('#pilotStatus')
+    const copilotStatus = document.querySelector('#copilotStatus')
+    const fuelStatus = document.querySelector('#fuelStatus')
+    const cargoStatus = document.querySelector('#cargoStatus')
+    
+    if (validateInput(pilot) === 'Empty' || validateInput(copilot) === 'Empty' || validateInput(fuelLevel) === 'Empty' || validateInput(cargoLevel) === 'Empty') {
+        alert("Enter valid inputs")
     } else {
-        list.style.visibility = "visible";
-        list.innerHTML = ``
+        pilotStatus.textContent = `Pilot ${pilot} is ready for launch`
+        copilotStatus.textContent = `Co-pilot ${copilot} is ready for launch`
+        list.style.visibility = 'visible'
     }
+
+    if (validateInput(fuelLevel) === 'Is a Number') {
+        if (Number(fuelLevel) < 10000) {
+          launchStatus.style.color = 'red'
+          launchStatus.textContent = 'Shuttle Not Ready for Launch'
+          fuelStatus.textContent = 'Fuel level too low for launch'
+        } else {
+          fuelStatus.textContent = 'Fuel level high enough for launch'
+        }
+      }
+    
+      if (validateInput(cargoLevel) === 'Is a Number') {
+        if (Number(cargoLevel) > 10000) {
+          launchStatus.style.color = 'red'
+          launchStatus.innerText = 'Shuttle Not Ready for Launch'
+          cargoStatus.textContent = 'Cargo mass too heavy for launch'
+        } else {
+          cargoStatus.textContent = 'Cargo mass low enough for launch'
+        }
+      }
+    
+      if (Number(fuelLevel) >= 10000 && Number(cargoLevel) <= 10000) {
+        list.style.visibility = 'visible'
+        launchStatus.textContent = 'Shuttle is Ready for Launch';
+        launchStatus.style.color = 'green';
+      }
 }
 
  // task 3
  async function myFetch() {
-     let planetsReturned;
+    let planetsReturned;
+     
+    let fetchHelper = await fetch("https://handlers.education.launchcode.org/static/planets.json");
+    planetsReturned = await fetchHelper.json();
  
-     planetsReturned = await fetch().then( function(response) {
-        // where you will fetch all planets an as array 
-         });
- 
-     return planetsReturned;
+    return planetsReturned;
  }
  
  function pickPlanet(planets) {
-    // let planet = {} (bc it will be an object)
+    let planet = {}
     // where random number generator will select planet from planetsReturned array; 
-    // return planet; 
+    planet = planets[Math.floor(Math.random() * 5)];
+    return planet; 
  }
  
- module.exports.addDestinationInfo = addDestinationInfo;
- module.exports.validateInput = validateInput;
- module.exports.formSubmission = formSubmission;
- module.exports.pickPlanet = pickPlanet; 
- module.exports.myFetch = myFetch;
+ // next 2 lines added as a fix for console bug of module undefined
+ // if tests aren't working, remove these
+ if (typeof module === 'object') {
+    module.exports.addDestinationInfo = addDestinationInfo;
+    module.exports.validateInput = validateInput;
+    module.exports.formSubmission = formSubmission;
+    module.exports.pickPlanet = pickPlanet; 
+    module.exports.myFetch = myFetch;
+ }
