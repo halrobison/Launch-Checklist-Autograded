@@ -14,7 +14,7 @@ window.addEventListener("load", function() {
         const planet = pickPlanet(listedPlanets);
         // call addDesitination - which will utilize fetch
         // FYI - can't assign a variable and then use .then; it will be one long ask (with a promise, waiting for the response with fetch)
-        addDestinationInfo(document, planet.name, planet.diameter, planet.star, planet,distance, planet.moons, planet.image); 
+        addDestinationInfo(document, planet.name, planet.diameter, planet.star, planet.distance, planet.moons, planet.image); 
     })
 
     // add eventListener for button
